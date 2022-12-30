@@ -138,7 +138,7 @@ MongoClient.connect("mongodb://127.0.0.1:27017",function(err,client){
     }else if (y==''){
       alert('you did not enter a password')
     }else if(x=='admin'&&y=='admin'){
-      res.render('home');
+      res.redirect('home');
     }else{
       var flag=false;
       for(let i=0;i<array.length;i++){
