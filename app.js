@@ -125,38 +125,16 @@ db.collection('myCollection').find().toArray(function(err,array){
 }); 
 
 
-app.post('/login',function(req,res){
-var x=req.body.username
-var y=req.body.password
-var MongoClient = require('mongodb').MongoClient;
-MongoClient.connect("mongodb://127.0.0.1:27017",function(err,client){
-  if(err) throw err;
-  var db =client.db('myDB');
-  db.collection('myCollection').find().toArray(function(err,array){
-    if(x==''){
-      alert('you did not enter username');
-    }else if (y==''){
-      alert('you did not enter a password')
-    }else if(x=='admin'&&y=='admin'){
-      res.redirect('home');
-    }else{
-      var flag=false;
-      for(let i=0;i<array.length;i++){
-        if(x==array[i].username && y==array[i].password){
-          req.session.user=array[i];
-          flag=true;
-        };
-      };
-      if(flag==true){
-        res.render('home');
-      }else{
-        alert('username or password doesnot exist');
-      };
-    };
-  });
-});
-}
-);
+app.post('/login', function(req,res){
+    var username = req.body.username;
+    var pass = req.body.password;
+   if(username=="admin" && pass =="admin")
+   {req.session.user = "admin";
+    req.session.save();
+    res.redirect('/home');}
+   else
+           alert("Incorrect username or password");
+})
 
 app.post('/inca',function(req,res){
   var MongoClient = require('mongodb').MongoClient;
